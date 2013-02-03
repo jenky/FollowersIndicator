@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="FollowersIndicator" title="Followers Indicator" version_string="1.2.1" version_id="6" url="" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="Milano_FollowersIndicator_Listener" callback_method="loadClassListener" active="1" description=""/>
+    <listener event_id="template_create" execute_order="10" callback_class="Milano_FollowersIndicator_Listener" callback_method="templateCreate" active="1" description=""/>
+    <listener event_id="template_hook" execute_order="10" callback_class="Milano_FollowersIndicator_Listener" callback_method="templateHook" active="1" description=""/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases/>
+  <route_prefixes/>
+  <style_properties/>
+  <templates>
+    <template title="followers_indicator" version_id="5" version_string="1.2.0"><![CDATA[<xen:set var="$followersCount">
+	<xen:if is="{$message.followers_count}">
+		{$message.followers_count}
+	<xen:else />
+			0
+	</xen:if>
+</xen:set>
+
+<xen:require js="js/Milano/FollowersIndicator/follow.js" />
+<xen:require css="followers_indicator.css" />	
+
+<span class="followersIndicator">
+	<xen:if is="{$visitor.user_id} && {$message.user_id} != {$visitor.user_id}">
+		<xen:follow user="$message" class="Tooltip followersButton" data-follow="{$message.user_id}" data-member="{xen:link 'members', $message}" />
+	<xen:else />
+		<a class="followersButton myFollowers">{xen:phrase followers}</a>
+	</xen:if>
+		<a href="{xen:link 'members/followers', $message}" class="followersCount OverlayTrigger follow-{$message.user_id}">{xen:number $followersCount}</a>
+</span>
+	]]></template>
+    <template title="followers_indicator.css" version_id="4" version_string="1.1.1"><![CDATA[.followersIndicator {
+	display: inline-block;
+	margin-left: 10px;
+}
+.followersButton {
+	font-size: 11px !important;
+	font-family:'Droid Sans','Trebuchet MS',Helvetica,Arial,sans-serif;
+	font-weight:bold;
+	text-align:center;
+	vertical-align:top;
+	height: 18px !important;
+	line-height: 18px !important;
+	padding: 0 12px !important;
+	border-radius:2px;
+	background:url('{xen:property imagePath}/xenforo/images/highlight.png') repeat-x top;
+	color: rgba(0,0,0,0.62);
+	border:1px solid #CCC;
+	/*box-shadow:0px 1px 2px rgba(0,0,0,0.15);*/
+	background-image: -moz-linear-gradient(top,white 0,#E0E0E0 100%);
+	background-image: -ms-linear-gradient(top,white 0,#E0E0E0 100%);
+	background-image: -o-linear-gradient(top,white 0,#E0E0E0 100%);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,white),color-stop(100%,#E0E0E0));
+	background-image: -webkit-linear-gradient(top,white 0,#E0E0E0 100%);
+	background-image: linear-gradient(to bottom,white 0,#E0E0E0 100%);
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#ffffffff,EndColorStr=#ffe0e0e0);
+	margin-top: -1px;
+}
+a.followersButton:hover {
+	text-decoration: none;
+	color: #000;
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.15);
+}
+.myFollowers:hover {
+	color: rgba(0,0,0,0.62) !important;
+	box-shadow: none !important;
+}
+.followersCount {
+	padding: 2px 8px;
+	height: 14px !important;
+	border: 1px solid #ccc;
+	color: #212121;
+	font-size: 11px !important;
+	text-align: center;
+	line-height: 15px !important;
+	position: relative;
+	margin-left: 6px;
+	top: -1px;
+	background-color: #fff;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+}
+.followersCount::before {
+	margin-top: 2px;
+	border-color: transparent #bbb;
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: -5px;
+	border-width: 5px 5px 5px 0;
+	border-style: solid;
+}
+.followersCount::after {
+	margin-top: 2px;
+	content: '';
+	position: absolute;
+	top: 3px;
+	left: -4px;
+	border-width: 4px 4px 4px 0;
+	border-style: solid;
+	border-color: transparent #fff;
+}
+a.followersCount:hover {
+	text-decoration: none;
+}]]></template>
+    <template title="followers_indicator_js" version_id="1" version_string="1.0.0"><![CDATA[jQuery.extend(XenForo.phrases,
+{	
+	follow:		"{xen:jsescape {xen:phrase follow}}",								   
+	unfollow:	"{xen:jsescape {xen:phrase unfollow}}",
+
+	followers:	"{xen:jsescape {xen:phrase followers}}"
+});]]></template>
+  </templates>
+  <bb_code_media_sites/>
+  <template_modifications/>
+</addon>
