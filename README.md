@@ -5,7 +5,7 @@
  * Copyright (c) 2012 Milano
  * All rights reserved.
 
-#[INSTALLATION]
+#INSTALLATION
 
 1. Upload all files and folders to your forum directory.
 
