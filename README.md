@@ -9,4 +9,4 @@
 1. Upload all files and folders to your forum directory.
 2. Install or upgrade addon by import .xml file via AdminCP.
 3. Edit template "message" and add the following code to wherever you want
-<pre><code> `<xen:include template="followers_indicator" />` </code></pre>
+<pre> `<xen:include template="followers_indicator" />` </pre>
